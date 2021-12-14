@@ -35,13 +35,13 @@ public class ClienteController {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<ClienteDto> cadastrarCliente (@RequestBody ClienteForm form, UriComponentsBuilder uriBuilder) {
-		Cliente cliente = form.converter();
+	public ResponseEntity<Cliente> cadastrarCliente (@RequestBody Cliente cliente, UriComponentsBuilder uriBuilder) {
+		//Cliente cliente = form.converter();
 		clienteRepository.save(cliente);
 
 		//O uri gera um codigo 201(Conteudo criado), ao inves de codigo 200
 		URI uri = uriBuilder.path("/clientes/{id}").buildAndExpand(cliente.getId()).toUri();
-		return ResponseEntity.created(uri).body(new ClienteDto(cliente));
+		return ResponseEntity.created(uri).body(cliente);
 	}
 
 	@PutMapping("/{id}")

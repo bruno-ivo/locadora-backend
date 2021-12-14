@@ -34,11 +34,11 @@ public class FilmeController {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<FilmeDto> cadastrarFilme (@RequestBody FilmeForm form, UriComponentsBuilder uriBuilder){
-		Filme filme = form.converter();
+	public ResponseEntity<Filme> cadastrarFilme (@RequestBody Filme filme, UriComponentsBuilder uriBuilder){
+		//Filme filme = form.converter();
 		filmeRepository.save(filme);
 		URI uri = uriBuilder.path("/filmes/{id}").buildAndExpand(filme.getId()).toUri();
-		return ResponseEntity.created(uri).body(new FilmeDto(filme));
+		return ResponseEntity.created(uri).body(filme);
 	}
 
 	@PutMapping("/{id}")
